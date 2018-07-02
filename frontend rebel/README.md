@@ -1,44 +1,61 @@
 ### Apresentação do problema
 
 
+Temos um grupo de rebeldes (Rogue One) prestes a se infiltrar na base inimiga de Scarif para nos enviar os planos da estrela da morte.
+O problema é que a nossa base responsável por receber tais informações foi destruída e precisamos urgentemente **desenvolver um novo meio de comunicação seguro**.
 
-O arquivo `index.html` contém o gostariamos que fosse uma pagina de login totalmente incrivel e
-que deixasse nosso usuario confortavel com um processo sempre tão repetitivo que é colocar senha 
-para entrar em qualquer sistema.
-Mas vamos concordar que ele é bem feio e precisa de uma boa *tunada*. 
+Nosso grupo de rebeldes, antes de nos transmitir as informações, deverá realizar alguma forma de **autenticação**. Isso vai garantir que caso o Império nos descubra, não seja possível o envio de informações falsas para nos despistar.
 
-Então a feature inicial de nossa aplicação é bastante simples: login e para isso você acessará nossa
-api já prontinha para consumo. Atrávés de um *Post* em _https://astar-frontend-service.herokuapp.com/login_
+Com isso em mente, precisamos que você desenvolva uma **aplicação no formato de API** (mesmo em uma galaxia muito distante, ainda é usado **REST**) que permita a autenticação do grupo Rogue One para que possa nos enviar as informações que julgamos necessárias.
+ 
+#### Feature I
+Logo a feature inicial de nossa aplicação é bastante simples: **LOGIN**
+Para isso você criará um recurso que deve autenticar em uma **base de dados** as informações recebidas de uma requisição HTTP:
+
 ``` 
 {
 	"login":"",
 	"senha":""
 }
 ```
-`Não se preocupe com segurança, cache, sessão ou criptografia (ainda), é apenas um teste ensaiado.`
-Ah!, antes que eu me esqueça, as credenciais corretas são login:hansolo e password:millenium
 
-Ao realizar o login com sucesso, você deverá redirecionar a pagina para a `dashboard.html` que deverá conter
-na `<div id="graficoEmBarras">` um grafico de barras com todo o histórico de logins divididos por data. 
-Tá, e como você acessa isso ? Faça um *Get* em _https://astar-frontend-service.herokuapp.com/log_
+Preocupe-se com segurança, sessão e criptografia. Entretanto, elabore uma forma eficiente que ofereça alguma facilidade de utilização para nosso grupo de rebeldes que podem estar correndo perigo. Pode não ser uma boa ideia exigir login e senha para cada arquivo a ser recebido deles, então ao realizar o login com sucesso, nosso esquadrão poderá receber um token autenticado para as próximas comunicações que ocorrerão em seguida.
 
-Agora, na `<div id="listaLog">` você devera nos mostrar um grid contendo as informações mais relevantes 
-dos usuarios que entraram no sistema, com um mecanismo de busca por texto (se for aqueles que sugerem 
-resposta, vai ser mais legal ainda).
+```
+{ 
+	"result":{
+		"status":authenticated"
+		"token":"0x2883ab211a3b1...."
+	}
+	"error":null
+	"date":"02-06-2018 12:13"
+}
+``` 
 
+_(Lembre-se que o json acima é apenas uma referencia,você pode criar em cima algo bem legal)_
 
-### O quê esperamo 
+#### Feature II
+Em seguida, você deve preparar o recebimento do modelo (`DeathPlans`) que está dentro dos projetos de referência. 
+Não se esqueça de validar o token que deve ser informado no recebimento das informações. Por fim, você deve receber esses dados, valida-los, persisti-los em nossa base de dados e garantir que a transmissão está completa e integra.
 
-Esse é um teste focado em design de código, em design de UI, e conhecimento de orientação a 
-objeto. O objetivo é avaliar sua experiênica em escrever código de fácil 
-manutenção, baixo acoplamento, e alta coesão.
+#### Feature III
+Não é de extrema importância, e isso vai além de sua missão principal que ja foi descrita, mas caso queira ir além e demonstrar todo seu potencial Jedi, desenvolva também alguma forma de transmitir ordens para nosso esquadrão. Ou seja, será preciso disponibilizar algum recurso que ao ser acessado irá retornar informações em nossa base de dados para o esquadrão.
 
-Isoladamente são features simples de implementar, mas queremos que você 
-leve em conta a evolução futura do software. Imagine que o app irá crescer em 
-features, e adicionar no futuro, então escolha muito bem suas ferramentas
+### O quê esperamos 
 
-Você deve pensar num design de código que suporte esses casos de uso sem 
-grandes modificações.
+A solução para esse problema pode ser oferecida em algumas linguagens como:
+* Java 
+* Scala
+* Groovy
+* Kotlin
+* Go
+* Node.js
+
+Estamos disponibilizando modelos em 2 linguagens (Java e Go), mas sinta-se a vontade para resolver nas outras da lista acima.
+
+Esse é um teste focado em design de código, conhecimento de orientação a objeto (ou funcional, caso assim você opte) e qualidade no geral da solução proposta. O objetivo é avaliar sua experiênica em escrever código de fácil manutenção, baixo acoplamento, e alta coesão.
+
+Isoladamente são features simples de implementar, mas queremos que você leve em conta a evolução futura do software. Imagine que a solução irá crescer em  features, e ser adicionada no futuro, então escolha muito bem suas ferramentas. Você deve pensar num design de código que suporte esses casos de uso sem  grandes modificações.
 
 Existem algumas pegadinhas, então tente corrigi-las ou simplesmente apaga-lás caso queira.
 
